@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import EventForm from "@/components/EventForm";
 import Results from "@/components/Results";
+import AboutUs from "@/components/AboutUs";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -22,6 +23,7 @@ const Index = () => {
         <Hero />
         <EventForm onSubmit={handleFormSubmit} />
         <Results isVisible={showResults} formData={eventData} />
+        <AboutUs />
       </main>
       
       <Footer />

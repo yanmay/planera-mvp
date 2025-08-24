@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import Features from "@/components/Features";
 import EventForm from "@/components/EventForm";
 import Results from "@/components/Results";
 import AboutUs from "@/components/AboutUs";
@@ -21,6 +22,7 @@ const Index = () => {
       
       <main>
         <Hero />
+        <Features />
         <EventForm onSubmit={handleFormSubmit} />
         <Results isVisible={showResults} formData={eventData} />
         <AboutUs />

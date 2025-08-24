@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/hero-corporate-event.jpg";
+import { ArrowRight } from "lucide-react";
 
 const Hero = () => {
   const scrollToForm = () => {
@@ -9,41 +9,45 @@ const Hero = () => {
     }
   };
 
+  const scrollToDashboard = () => {
+    // Placeholder for dashboard navigation
+    console.log('Navigate to dashboard');
+  };
+
   return (
-    <section className="relative py-24 overflow-hidden">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0">
-        <img 
-          src={heroImage} 
-          alt="Modern corporate event venue in India"
-          className="w-full h-full object-cover opacity-20"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-background/30" />
+    <section className="relative min-h-screen bg-black overflow-hidden flex items-center">
+      {/* Purple Gradient Circle */}
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[800px] h-[800px] opacity-30">
+        <div className="w-full h-full bg-gradient-to-br from-primary via-purple-500 to-pink-500 rounded-full blur-3xl"></div>
       </div>
       
       {/* Content */}
-      <div className="container relative z-10 max-w-7xl mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center space-y-8">
-          <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-            Plan your next corporate event in{" "}
-            <span className="hero-text-gradient">India</span>{" "}
-            with{" "}
-            <span className="hero-text-gradient">AI</span>
+      <div className="container relative z-10 max-w-7xl mx-auto px-6">
+        <div className="max-w-4xl">
+          <h1 className="text-6xl md:text-8xl font-bold text-white leading-none mb-8">
+            Not Just Smart.
+            <br />
+            <span className="hero-text-gradient">Self-Directed</span>
           </h1>
           
-          <p className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed">
-            Get instant, intelligent venue recommendations from India's top cities.
-            Tailored for the Indian market, from Mumbai to Bengaluru.
-          </p>
-          
-          <div className="pt-6">
+          <div className="flex flex-col sm:flex-row gap-4 pt-8">
             <Button 
               variant="hero" 
               size="lg" 
               onClick={scrollToForm}
-              className="text-lg px-8 py-4 h-auto focus-ring animate-glow"
+              className="text-lg px-8 py-4 h-auto focus-ring bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90"
             >
-              Start Planning Now
+              Start Planning
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              size="lg" 
+              onClick={scrollToDashboard}
+              className="text-lg px-8 py-4 h-auto focus-ring border-white/20 text-white bg-transparent hover:bg-white/10"
+            >
+              View Dashboard
             </Button>
           </div>
         </div>

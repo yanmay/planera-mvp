@@ -8,6 +8,7 @@ import { Loader2 } from "lucide-react";
 import venueImage1 from "@/assets/venue-taj-lands-end.jpg";
 import venueImage2 from "@/assets/venue-itc-grand-chola.jpg";
 import venueImage3 from "@/assets/venue-leela-palace.jpg";
+import venueImage4 from "@/assets/hero-corporate-event.jpg";
 import { getAIRecommendations } from "../services/aiService";
 
 // Types for the API response
@@ -68,8 +69,15 @@ const formatIndianCurrency = (amount: number): string => {
 
 // Helper function to get venue image
 const getVenueImage = (index: number): string => {
-  const images = [venueImage1, venueImage2, venueImage3];
-  return images[index % images.length];
+  // Create a randomized array of images for 27 venues
+  const allImages = [venueImage1, venueImage2, venueImage3, venueImage4];
+  const randomizedImages = [
+    venueImage1, venueImage2, venueImage3, venueImage4, venueImage1, venueImage2, venueImage3, venueImage4,
+    venueImage1, venueImage2, venueImage3, venueImage4, venueImage1, venueImage2, venueImage3, venueImage4,
+    venueImage1, venueImage2, venueImage3, venueImage4, venueImage1, venueImage2, venueImage3, venueImage4,
+    venueImage1, venueImage2, venueImage3
+  ];
+  return randomizedImages[index];
 };
 
 const Results = ({ isVisible, formData }: ResultsProps) => {
@@ -119,7 +127,7 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
               venue_type: "hotel",
               amenities: ["parking", "catering", "wifi", "av_equipment", "sea_view"],
               rating: 4.8,
-              image_url: venueImage1,
+              image_url: getVenueImage(0),
               description: "Luxury hotel with stunning sea views and world-class amenities",
               totalCost: 1020000,
               contact_phone: "+91-22-6668-1234",
@@ -141,7 +149,7 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
               venue_type: "hotel",
               amenities: ["parking", "catering", "wifi", "conference_rooms", "business_center"],
               rating: 4.7,
-              image_url: venueImage2,
+              image_url: getVenueImage(1),
               description: "Premium business hotel with world-class facilities and excellent service",
               totalCost: 720000,
               contact_phone: "+91-44-2220-0000",
@@ -163,7 +171,7 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
               venue_type: "hotel",
               amenities: ["parking", "catering", "wifi", "spa", "pool", "royal_ambiance"],
               rating: 4.9,
-              image_url: venueImage3,
+              image_url: getVenueImage(2),
               description: "Opulent palace hotel with royal treatment and exceptional dining",
               totalCost: 1062000,
               contact_phone: "+91-80-2521-1234",
@@ -185,7 +193,7 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
               venue_type: "hotel",
               amenities: ["parking", "catering", "audiovisual", "wifi", "valet_service", "spa_access"],
               rating: 4.8,
-              image_url: venueImage1,
+              image_url: getVenueImage(3),
               description: "Historic luxury hotel with colonial architecture and world-class service",
               totalCost: 1044000,
               contact_phone: "+91-11-2334-1234",
@@ -207,7 +215,7 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
               venue_type: "convention_center",
               amenities: ["parking", "catering", "audiovisual", "wifi", "exhibition_space", "meeting_rooms"],
               rating: 4.5,
-              image_url: venueImage2,
+              image_url: getVenueImage(4),
               description: "Modern convention center with state-of-the-art facilities and flexible spaces",
               totalCost: 1120000,
               contact_phone: "+91-11-2468-1234",
@@ -229,7 +237,7 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
               venue_type: "hotel",
               amenities: ["parking", "catering", "audiovisual", "wifi", "spa_access", "pool_access"],
               rating: 4.9,
-              image_url: venueImage3,
+              image_url: getVenueImage(5),
               description: "Palatial luxury hotel with royal treatment and exceptional dining",
               totalCost: 1364000,
               contact_phone: "+91-11-3933-1234",
@@ -251,7 +259,7 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
               venue_type: "convention_center",
               amenities: ["parking", "catering", "audiovisual", "wifi", "exhibition_space", "loading_dock"],
               rating: 4.4,
-              image_url: venueImage1,
+              image_url: getVenueImage(6),
               description: "Large-scale convention center perfect for major exhibitions and events",
               totalCost: 1400000,
               contact_phone: "+91-11-2337-1234",
@@ -273,7 +281,7 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
               venue_type: "hotel",
               amenities: ["parking", "catering", "audiovisual", "wifi", "spa_access", "garden_access"],
               rating: 4.7,
-              image_url: venueImage2,
+              image_url: getVenueImage(7),
               description: "Elegant palace hotel with stunning gardens and luxury amenities",
               totalCost: 1540000,
               contact_phone: "+91-11-2611-1234",
@@ -295,7 +303,7 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
               venue_type: "hotel",
               amenities: ["parking", "catering", "audiovisual", "wifi", "spa_access", "sea_view"],
               rating: 4.9,
-              image_url: venueImage3,
+              image_url: getVenueImage(8),
               description: "Iconic luxury hotel with breathtaking Arabian Sea views and heritage charm",
               totalCost: 1700000,
               contact_phone: "+91-22-6665-1234",
@@ -317,7 +325,7 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
               venue_type: "convention_center",
               amenities: ["parking", "catering", "audiovisual", "wifi", "exhibition_space", "tech_support"],
               rating: 4.3,
-              image_url: venueImage1,
+              image_url: getVenueImage(9),
               description: "Modern exhibition center with flexible spaces for large-scale events",
               totalCost: 1350000,
               contact_phone: "+91-22-2493-1234",
@@ -339,7 +347,7 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
               venue_type: "hotel",
               amenities: ["parking", "catering", "audiovisual", "wifi", "spa_access", "business_center"],
               rating: 4.6,
-              image_url: venueImage2,
+              image_url: getVenueImage(10),
               description: "Premium business hotel with excellent connectivity and modern amenities",
               totalCost: 960000,
               contact_phone: "+91-22-2410-1234",
@@ -361,7 +369,7 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
               venue_type: "hotel",
               amenities: ["parking", "catering", "audiovisual", "wifi", "pool_access", "garden_access"],
               rating: 4.4,
-              image_url: venueImage3,
+              image_url: getVenueImage(11),
               description: "Contemporary hotel with unique dome architecture and lush gardens",
               totalCost: 756000,
               contact_phone: "+91-22-3980-1234",
@@ -383,7 +391,7 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
               venue_type: "convention_center",
               amenities: ["parking", "catering", "audiovisual", "wifi", "exhibition_space", "meeting_rooms"],
               rating: 4.5,
-              image_url: venueImage1,
+              image_url: getVenueImage(12),
               description: "Premier business center with world-class conference facilities",
               totalCost: 1120000,
               contact_phone: "+91-22-6652-1234",
@@ -405,7 +413,7 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
               venue_type: "hotel",
               amenities: ["parking", "catering", "audiovisual", "wifi", "spa_access", "pool_access"],
               rating: 4.8,
-              image_url: venueImage2,
+              image_url: getVenueImage(13),
               description: "Luxury palace hotel with royal treatment and exceptional service",
               totalCost: 1416000,
               contact_phone: "+91-80-2521-1234",
@@ -427,7 +435,7 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
               venue_type: "convention_center",
               amenities: ["parking", "catering", "audiovisual", "wifi", "shopping_access", "meeting_rooms"],
               rating: 4.4,
-              image_url: venueImage3,
+              image_url: getVenueImage(14),
               description: "Premium convention center within luxury shopping complex",
               totalCost: 1064000,
               contact_phone: "+91-80-4177-1234",
@@ -449,7 +457,7 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
               venue_type: "hotel",
               amenities: ["parking", "catering", "audiovisual", "wifi", "spa_access", "garden_access"],
               rating: 4.7,
-              image_url: venueImage1,
+              image_url: getVenueImage(15),
               description: "Eco-friendly luxury hotel with beautiful gardens and sustainable practices",
               totalCost: 1040000,
               contact_phone: "+91-80-2211-1234",
@@ -471,7 +479,7 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
               venue_type: "convention_center",
               amenities: ["parking", "catering", "audiovisual", "wifi", "exhibition_space", "tech_support"],
               rating: 4.3,
-              image_url: venueImage2,
+              image_url: getVenueImage(16),
               description: "Large-scale exhibition center with modern technology and flexible spaces",
               totalCost: 1280000,
               contact_phone: "+91-80-4111-1234",
@@ -493,7 +501,7 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
               venue_type: "hotel",
               amenities: ["parking", "catering", "audiovisual", "wifi", "spa_access", "pool_access"],
               rating: 4.9,
-              image_url: venueImage3,
+              image_url: getVenueImage(17),
               description: "Ultra-luxury hotel with impeccable service and world-class amenities",
               totalCost: 1040000,
               contact_phone: "+91-80-4914-1234",
@@ -515,7 +523,7 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
               venue_type: "hotel",
               amenities: ["parking", "catering", "audiovisual", "wifi", "spa_access"],
               rating: 4.8,
-              image_url: venueImage1,
+              image_url: getVenueImage(18),
               description: "Luxury ballroom in Bandra Kurla Complex with modern amenities and city views",
               totalCost: 1040000,
               contact_phone: "+91-22-6778-1234",
@@ -537,7 +545,7 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
               venue_type: "hotel",
               amenities: ["parking", "catering", "audiovisual", "wifi", "shopping_access"],
               rating: 4.6,
-              image_url: venueImage2,
+              image_url: getVenueImage(19),
               description: "Sophisticated ballroom in UB City with luxury shopping and dining options",
               totalCost: 864000,
               contact_phone: "+91-80-4177-1234",
@@ -559,7 +567,7 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
               venue_type: "hotel",
               amenities: ["parking", "catering", "audiovisual", "wifi", "pool_access"],
               rating: 4.7,
-              image_url: venueImage3,
+              image_url: getVenueImage(20),
               description: "Luxury hotel ballroom with contemporary design and excellent service",
               totalCost: 736000,
               contact_phone: "+91-44-7177-1234",
@@ -581,7 +589,7 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
               venue_type: "heritage",
               amenities: ["parking", "catering", "audiovisual", "wifi", "heritage_tour"],
               rating: 4.9,
-              image_url: venueImage1,
+              image_url: getVenueImage(21),
               description: "Historic palace venue with royal ambiance and breathtaking city views",
               totalCost: 780000,
               contact_phone: "+91-40-6669-1234",
@@ -603,7 +611,7 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
               venue_type: "convention_center",
               amenities: ["parking", "audiovisual"],
               rating: 3.8,
-              image_url: venueImage2,
+              image_url: getVenueImage(22),
               description: "Affordable conference center for small business events",
               totalCost: 144000,
               contact_phone: "+91-22-2345-6789",
@@ -625,7 +633,7 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
               venue_type: "resort",
               amenities: ["parking", "catering", "audiovisual", "wifi", "spa", "pool", "beach_access"],
               rating: 4.9,
-              image_url: venueImage3,
+              image_url: getVenueImage(23),
               description: "Premium beachfront resort with luxury amenities",
               totalCost: 1500000,
               contact_phone: "+91-832-2345-6789",
@@ -647,7 +655,7 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
               venue_type: "banquet_hall",
               amenities: ["parking", "catering"],
               rating: 3.5,
-              image_url: venueImage1,
+              image_url: getVenueImage(24),
               description: "Simple community hall for local events",
               totalCost: 180000,
               contact_phone: "+91-20-2345-6789",
@@ -669,7 +677,7 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
               venue_type: "convention_center",
               amenities: ["parking", "catering", "audiovisual", "wifi", "exhibition_space"],
               rating: 4.4,
-              image_url: venueImage2,
+              image_url: getVenueImage(25),
               description: "Modern convention center with state-of-the-art facilities",
               totalCost: 1050000,
               contact_phone: "+91-40-2345-6789",
@@ -691,7 +699,7 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
               venue_type: "convention_center",
               amenities: ["parking", "catering", "audiovisual", "wifi", "meeting_rooms"],
               rating: 4.2,
-              image_url: venueImage3,
+              image_url: getVenueImage(26),
               description: "Professional convention center for corporate events and conferences",
               totalCost: 700000,
               contact_phone: "+91-20-3456-7890",
@@ -995,26 +1003,36 @@ const Results = ({ isVisible, formData }: ResultsProps) => {
           <>
                   <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-12">
                     {displayedVenues.map((venue, index) => (
-                <VenueCard
-                  key={venue.id}
-                  name={venue.name}
-                  location={`${venue.city}`}
-                  capacity={venue.capacity}
-                  price={formatIndianCurrency(venue.totalCost)}
-                  rating={venue.rating}
-                  image={venue.image_url || getVenueImage(index)}
-                        venueType={venue.venue_type}
-                        amenities={venue.amenities}
-                        contactPhone={venue.contact_phone}
-                        contactEmail={venue.contact_email}
-                        address={venue.address}
-                        availabilityStatus={venue.availability_status}
-                        wifiAvailable={venue.wifi_available}
-                        parkingCapacity={venue.parking_capacity}
-                        acAvailable={venue.ac_available}
-                        cateringAvailable={venue.catering_available}
-                                     onClick={() => handleVenueCardClick(venue)}
-                />
+                                  <VenueCard
+                    key={venue.id}
+                    name={venue.name}
+                    location={`${venue.city}`}
+                    capacity={venue.capacity}
+                    price={formatIndianCurrency(venue.totalCost)}
+                    rating={venue.rating}
+                    image={venue.image_url || getVenueImage(index)}
+                          venueType={venue.venue_type}
+                          amenities={venue.amenities}
+                          contactPhone={venue.contact_phone}
+                          contactEmail={venue.contact_email}
+                          address={venue.address}
+                          availabilityStatus={venue.availability_status}
+                          wifiAvailable={venue.wifi_available}
+                          parkingCapacity={venue.parking_capacity}
+                          acAvailable={venue.ac_available}
+                          cateringAvailable={venue.catering_available}
+                          eventData={formData ? {
+                            eventType: formData.eventType,
+                            attendees: formData.attendees,
+                            budget: formData.budget,
+                            startDate: formData.startDate,
+                            endDate: formData.endDate,
+                            city: formData.city,
+                            industry: 'General',
+                            vipCount: 0
+                          } : undefined}
+                                       onClick={() => handleVenueCardClick(venue)}
+                  />
               ))}
             </div>
             

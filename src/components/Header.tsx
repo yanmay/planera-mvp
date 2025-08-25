@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import "./Logo.css";
 
 const Header = (): JSX.Element => {
   const scrollToForm = (): void => {
@@ -14,9 +15,7 @@ const Header = (): JSX.Element => {
         {/* Logo */}
         <div className="flex items-center">
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">P</span>
-            </div>
+            <img src="/logo.svg" alt="Planera Logo" className="logo-svg logo-small" />
             <h1 className="text-xl font-bold text-white">Planera</h1>
           </div>
         </div>

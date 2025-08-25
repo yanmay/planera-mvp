@@ -1,0 +1,70 @@
+/* Logo Component Styles */
+.logo-svg {
+  display: inline-block;
+  vertical-align: middle;
+  transition: all 0.3s ease;
+}
+
+.logo-svg:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+.logo-letter {
+  transition: stroke 0.3s ease;
+}
+
+/* Responsive sizing */
+.logo-svg.logo-small {
+  width: 32px;
+  height: 32px;
+}
+
+.logo-svg.logo-medium {
+  width: 64px;
+  height: 64px;
+}
+
+.logo-svg.logo-large {
+  width: 128px;
+  height: 128px;
+}
+
+.logo-svg.logo-xl {
+  width: 256px;
+  height: 256px;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .logo-svg {
+    filter: contrast(1.1);
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .logo-letter {
+    stroke: #FFFFFF !important;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .logo-svg,
+  .logo-letter {
+    transition: none;
+  }
+  
+  .logo-svg:hover {
+    transform: none;
+    filter: none;
+  }
+}
+
+/* Focus styles for accessibility */
+.logo-svg:focus {
+  outline: 2px solid #9B59B6;
+  outline-offset: 2px;
+  border-radius: 50%;
+}

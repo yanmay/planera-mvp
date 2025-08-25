@@ -1,7 +1,7 @@
 // Gemini API Integration
 // This file contains the actual API calls to Google's Gemini AI
 
-const GEMINI_API_KEY = process.env.REACT_APP_GEMINI_API_KEY || '';
+const GEMINI_API_KEY = process.env.REACT_APP_GEMINI_API_KEY || 'AIzaSyBNSKfFjEKYrHhhQyOMLVY-0C-8pBHFY6E';
 const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
 
 export interface GeminiRequest {
@@ -25,6 +25,8 @@ export const callGeminiAPI = async (request: GeminiRequest): Promise<string> => 
     throw new Error('Gemini API key not configured');
   }
 
+  console.log('Calling Gemini API with key:', GEMINI_API_KEY.substring(0, 10) + '...');
+
   try {
     const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
       method: 'POST',
@@ -44,11 +46,17 @@ export const callGeminiAPI = async (request: GeminiRequest): Promise<string> => 
       })
     });
 
+    console.log('Gemini API Response Status:', response.status);
+
     if (!response.ok) {
-      throw new Error(`Gemini API error: ${response.status}`);
+      const errorText = await response.text();
+      console.error('Gemini API Error Response:', errorText);
+      throw new Error(`Gemini API error: ${response.status} - ${errorText}`);
     }
 
     const data: GeminiResponse = await response.json();
+    
+    console.log('Gemini API Raw Response:', data);
     
     if (!data.candidates || data.candidates.length === 0) {
       throw new Error('No response from Gemini API');
@@ -64,6 +72,7 @@ export const callGeminiAPI = async (request: GeminiRequest): Promise<string> => 
 // Helper function to parse JSON response from Gemini
 export const parseGeminiJSONResponse = (response: string): any => {
   try {
+    console.log('Parsing Gemini response:', response);
     // Extract JSON from the response (in case Gemini adds extra text)
     const jsonMatch = response.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
@@ -73,5 +82,20 @@ export const parseGeminiJSONResponse = (response: string): any => {
   } catch (error) {
     console.error('Error parsing Gemini JSON response:', error);
     throw new Error('Invalid JSON response from Gemini API');
+  }
+};
+
+// Test function to verify API is working
+export const testGeminiAPI = async (): Promise<void> => {
+  try {
+    console.log('Testing Gemini API...');
+    const response = await callGeminiAPI({
+      prompt: 'Respond with a simple JSON: {"test": "success", "message": "API is working"}',
+      maxTokens: 100,
+      temperature: 0.1
+    });
+    console.log('Gemini API Test Response:', response);
+  } catch (error) {
+    console.error('Gemini API Test Failed:', error);
   }
 };

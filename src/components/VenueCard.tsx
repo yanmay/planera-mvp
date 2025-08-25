@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { 
   Users, 
   IndianRupee, 
@@ -14,8 +15,14 @@ import {
   Clock,
   CheckCircle,
   XCircle,
-  AlertCircle
+  AlertCircle,
+  Brain,
+  Zap
 } from "lucide-react";
+import VenueIntelligenceCard from "./VenueIntelligenceCard";
+import IntelligenceOverlay from "./IntelligenceOverlay";
+import { useState } from "react";
+import { AIAnalysis } from "../services/venueIntelligenceService";
 
 interface VenueCardProps {
   name: string;
@@ -35,6 +42,16 @@ interface VenueCardProps {
   acAvailable?: boolean;
   cateringAvailable?: boolean;
   onClick?: () => void;
+  eventData?: {
+    eventType: string;
+    attendees: string;
+    budget: string;
+    startDate?: Date;
+    endDate?: Date;
+    city: string;
+    industry?: string;
+    vipCount?: number;
+  };
 }
 
 // Helper function to get venue type badge color
@@ -98,15 +115,23 @@ const VenueCard = ({
   parkingCapacity,
   acAvailable = true,
   cateringAvailable = false,
-  onClick 
+  onClick,
+  eventData
 }: VenueCardProps) => {
   const availability = getAvailabilityStatus(availabilityStatus);
   const AvailabilityIcon = availability.icon;
+  const [showIntelligence, setShowIntelligence] = useState(false);
+  const [aiAnalysis, setAiAnalysis] = useState<AIAnalysis | null>(null);
+  const [showOverlay, setShowOverlay] = useState(false);
+
+  const handleAnalysisComplete = (analysis: AIAnalysis) => {
+    setAiAnalysis(analysis);
+    setShowOverlay(true);
+  };
 
   return (
     <Card 
-      className="bg-background-card border-border card-hover cursor-pointer group overflow-hidden"
-      onClick={onClick}
+      className="bg-background-card border-border card-hover group overflow-hidden relative"
     >
       <div className="aspect-video overflow-hidden relative">
         <img 
@@ -131,9 +156,26 @@ const VenueCard = ({
             <span className={availability.color}>{availability.text}</span>
           </Badge>
         </div>
+
+        {/* AI Intelligence Button */}
+        {eventData && (
+          <div className="absolute bottom-3 right-3">
+            <Button
+              size="sm"
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowIntelligence(!showIntelligence);
+              }}
+              className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white border-0 shadow-lg"
+            >
+              <Brain className="w-4 h-4 mr-1" />
+              AI
+            </Button>
+          </div>
+        )}
       </div>
       
-      <CardContent className="p-6 space-y-4">
+      <CardContent className="p-6 space-y-4 cursor-pointer" onClick={onClick}>
         {/* Venue Name and Location */}
         <div className="space-y-2">
           <h3 className="text-lg font-semibold text-text-primary group-hover:text-primary transition-colors">
@@ -217,7 +259,62 @@ const VenueCard = ({
             <span>{price}</span>
           </div>
         </div>
+
+        {/* AI Intelligence Card Overlay */}
+        {showIntelligence && eventData && (
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm z-10 rounded-lg">
+            <div className="p-4 h-full">
+              <VenueIntelligenceCard
+                venue={{
+                  id: name,
+                  name,
+                  city: location,
+                  capacity,
+                  price_per_person: 5000, // Default value for AI analysis
+                  venue_type: venueType || 'venue',
+                  amenities: amenities || [],
+                  rating,
+                  image_url: image,
+                  totalCost: 1000000, // Default value for AI analysis
+                  contact_phone: contactPhone,
+                  contact_email: contactEmail,
+                  address,
+                  availability_status: availabilityStatus,
+                  wifi_available: wifiAvailable,
+                  parking_capacity: parkingCapacity,
+                  ac_available: acAvailable,
+                  catering_available: cateringAvailable
+                }}
+                eventData={eventData}
+                onAnalysisComplete={handleAnalysisComplete}
+              />
+            </div>
+          </div>
+        )}
       </CardContent>
+
+      {/* Intelligence Overlay Modal */}
+      {aiAnalysis && (
+        <IntelligenceOverlay
+          venue={{
+            id: name,
+            name,
+            city: location,
+            capacity,
+            price_per_person: 5000, // Default value for AI analysis
+            venue_type: venueType || 'venue',
+            rating,
+            image_url: image
+          }}
+          analysis={aiAnalysis}
+          isOpen={showOverlay}
+          onClose={() => setShowOverlay(false)}
+          onApplySuggestions={(suggestions) => {
+            console.log('Applied suggestions:', suggestions);
+            // Here you can implement the logic to apply suggestions
+          }}
+        />
+      )}
     </Card>
   );
 };

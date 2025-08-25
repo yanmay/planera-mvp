@@ -1,54 +1,52 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
-const Hero = () => {
-  const scrollToForm = () => {
+const Hero = (): JSX.Element => {
+  const scrollToForm = (): void => {
     const formElement = document.getElementById('event-form');
     if (formElement) {
       formElement.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  const scrollToDashboard = () => {
-    // Placeholder for dashboard navigation
-    console.log('Navigate to dashboard');
-  };
-
   return (
     <section className="relative min-h-screen bg-black overflow-hidden flex items-center">
-      {/* Purple Gradient Circle */}
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[800px] h-[800px] opacity-30">
-        <div className="w-full h-full bg-gradient-to-br from-primary via-purple-500 to-pink-500 rounded-full blur-3xl"></div>
-      </div>
+      {/* Simple gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-blue-900/20"></div>
       
-      {/* Content */}
       <div className="container relative z-10 max-w-7xl mx-auto px-6">
-        <div className="max-w-4xl">
-          <h1 className="text-6xl md:text-8xl font-bold text-white leading-none mb-8">
-            Not Just Smart.
-            <br />
-            <span className="hero-text-gradient">Self-Directed</span>
-          </h1>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left Column - Hero Content */}
+          <div className="max-w-2xl">
+            <h1 className="text-6xl md:text-8xl font-bold text-white leading-none mb-8">
+              Not Just Smart.
+              <br />
+              <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+                Self-Directed
+              </span>
+            </h1>
+            <div className="flex flex-col sm:flex-row gap-4 pt-8">
+              <Button 
+                variant="hero" 
+                size="lg" 
+                onClick={scrollToForm}
+                className="text-lg px-8 py-4 h-auto bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+              >
+                Start Planning
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </div>
+          </div>
           
-          <div className="flex flex-col sm:flex-row gap-4 pt-8">
-            <Button 
-              variant="hero" 
-              size="lg" 
-              onClick={scrollToForm}
-              className="text-lg px-8 py-4 h-auto focus-ring bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90"
-            >
-              Start Planning
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
-            
-            <Button 
-              variant="outline" 
-              size="lg" 
-              onClick={scrollToDashboard}
-              className="text-lg px-8 py-4 h-auto focus-ring border-white/20 text-white bg-transparent hover:bg-white/10"
-            >
-              View Dashboard
-            </Button>
+          {/* Right Column - Simple placeholder */}
+          <div className="flex justify-center lg:justify-end items-center">
+            <div className="w-[500px] h-[500px] lg:w-[700px] lg:h-[700px] bg-gradient-to-br from-purple-600/10 to-blue-600/10 rounded-full flex items-center justify-center border border-purple-500/20">
+              <div className="text-center text-white/60">
+                <div className="text-4xl mb-4">🌍</div>
+                <p className="text-lg font-medium">Interactive Globe</p>
+                <p className="text-sm opacity-75">Coming Soon</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

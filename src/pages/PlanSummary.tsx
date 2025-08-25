@@ -11,12 +11,58 @@ const PlanSummary = () => {
   const { toast } = useToast();
   const { venue, formData } = location.state || {};
 
+  // If no data is passed, show demo data or redirect
   if (!venue || !formData) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Plan not found</h1>
-          <Button onClick={() => navigate('/')}>Return Home</Button>
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center max-w-md mx-auto p-8">
+          <div className="mb-6">
+            <h1 className="text-3xl font-bold mb-4 text-white">Plan Summary</h1>
+            <p className="text-gray-400 mb-6">
+              No event plan data found. Please start by creating an event plan.
+            </p>
+          </div>
+          
+          <div className="space-y-4">
+            <Button 
+              onClick={() => navigate('/')}
+              className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Start Planning Your Event
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              onClick={() => {
+                // Navigate with demo data
+                const demoVenue = {
+                  id: "demo-1",
+                  name: "Taj Lands End",
+                  location: "Mumbai, Maharashtra",
+                  capacity: 500,
+                  price: "4,500 / person",
+                  image: "/src/assets/venue-taj-lands-end.jpg",
+                  rating: 4.8
+                };
+                
+                const demoFormData = {
+                  eventType: "Conference",
+                  city: "Mumbai",
+                  attendees: "150",
+                  startDate: new Date(),
+                  endDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000)
+                };
+                
+                navigate('/plan-summary', {
+                  state: { venue: demoVenue, formData: demoFormData }
+                });
+              }}
+              className="w-full"
+            >
+              View Demo Plan
+            </Button>
+          </div>
         </div>
       </div>
     );
@@ -49,14 +95,14 @@ const PlanSummary = () => {
   ];
 
   const budgetItems = [
-    { item: "Venue Rental (3 days)", cost: venue.price.replace(" / day", ""), notes: "Including basic setup" },
-    { item: "Catering (150 attendees)", cost: "2.1 Lakhs", notes: "Breakfast, lunch, snacks" },
-    { item: "AV Equipment", cost: "85,000", notes: "Projectors, mics, lighting" },
-    { item: "Photography", cost: "45,000", notes: "Event documentation" },
-    { item: "Miscellaneous", cost: "30,000", notes: "Decorations, materials" },
+    { item: "Venue Rental (3 days)", cost: venue.price?.replace(" / day", "") || "₹4,500", notes: "Including basic setup" },
+    { item: `Catering (${formData.attendees || 150} attendees)`, cost: "₹2.1 Lakhs", notes: "Breakfast, lunch, snacks" },
+    { item: "AV Equipment", cost: "₹85,000", notes: "Projectors, mics, lighting" },
+    { item: "Photography", cost: "₹45,000", notes: "Event documentation" },
+    { item: "Miscellaneous", cost: "₹30,000", notes: "Decorations, materials" },
   ];
 
-  const totalCost = "7.6 Lakhs";
+  const totalCost = "₹7.6 Lakhs";
 
   return (
     <div className="min-h-screen bg-background">
@@ -90,7 +136,7 @@ const PlanSummary = () => {
         {/* Title Block */}
         <Card className="bg-background-card border-border">
           <CardHeader>
-            <CardTitle className="text-2xl font-bold">
+            <CardTitle className="text-2xl font-bold text-white">
               AI-Generated Event Plan: {formData.eventType} in {formData.city}
             </CardTitle>
             <p className="text-text-secondary">
@@ -102,7 +148,7 @@ const PlanSummary = () => {
         {/* Venue Details */}
         <Card className="bg-background-card border-border">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 text-white">
               <MapPin className="w-5 h-5" />
               Venue Details
             </CardTitle>
@@ -117,21 +163,21 @@ const PlanSummary = () => {
                 />
               </div>
               <div className="space-y-3">
-                <h3 className="text-xl font-semibold">{venue.name}</h3>
+                <h3 className="text-xl font-semibold text-white">{venue.name}</h3>
                 <p className="text-text-secondary">{venue.location}</p>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <Users className="w-4 h-4" />
-                    <span>Capacity: {venue.capacity} guests</span>
+                    <span className="text-white">Capacity: {venue.capacity} guests</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <IndianRupee className="w-4 h-4" />
-                    <span>Rate: ₹{venue.price}</span>
+                    <span className="text-white">Rate: {venue.price}</span>
                   </div>
                   {formData.startDate && (
                     <div className="flex items-center gap-2">
                       <Calendar className="w-4 h-4" />
-                      <span>
+                      <span className="text-white">
                         {format(new Date(formData.startDate), "PPP")}
                         {formData.endDate && ` - ${format(new Date(formData.endDate), "PPP")}`}
                       </span>
@@ -146,7 +192,7 @@ const PlanSummary = () => {
         {/* Schedule */}
         <Card className="bg-background-card border-border">
           <CardHeader>
-            <CardTitle>Event Schedule</CardTitle>
+            <CardTitle className="text-white">Event Schedule</CardTitle>
             <p className="text-text-secondary">Day 1: Main Event</p>
           </CardHeader>
           <CardContent>
@@ -156,7 +202,7 @@ const PlanSummary = () => {
                   <div className="text-sm font-medium text-primary w-16">
                     {item.time}
                   </div>
-                  <div className="flex-1 text-sm">
+                  <div className="flex-1 text-sm text-white">
                     {item.activity}
                   </div>
                 </div>
@@ -168,25 +214,25 @@ const PlanSummary = () => {
         {/* Budget Breakdown */}
         <Card className="bg-background-card border-border">
           <CardHeader>
-            <CardTitle>Budget Breakdown</CardTitle>
+            <CardTitle className="text-white">Budget Breakdown</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
               {budgetItems.map((item, index) => (
                 <div key={index} className="flex items-center justify-between py-3 border-b border-border/30 last:border-0">
                   <div className="flex-1">
-                    <div className="font-medium">{item.item}</div>
+                    <div className="font-medium text-white">{item.item}</div>
                     <div className="text-sm text-text-secondary">{item.notes}</div>
                   </div>
                   <div className="font-semibold text-primary">
-                    ₹{item.cost}
+                    {item.cost}
                   </div>
                 </div>
               ))}
               
               <div className="flex items-center justify-between py-4 border-t-2 border-primary/20 mt-4">
-                <div className="text-lg font-bold">Total Estimated Cost</div>
-                <div className="text-xl font-bold text-primary">₹{totalCost}</div>
+                <div className="text-lg font-bold text-white">Total Estimated Cost</div>
+                <div className="text-xl font-bold text-primary">{totalCost}</div>
               </div>
             </div>
           </CardContent>

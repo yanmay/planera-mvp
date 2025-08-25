@@ -1,14 +1,12 @@
 import { Button } from "@/components/ui/button";
 
-const Header = () => {
-  const scrollToForm = () => {
+const Header = (): JSX.Element => {
+  const scrollToForm = (): void => {
     const formElement = document.getElementById('event-form');
     if (formElement) {
       formElement.scrollIntoView({ behavior: 'smooth' });
     }
   };
-
-  const navItems = ['Home', 'About', 'Dashboard', 'Create Task', 'Contact'];
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 backdrop-blur-md bg-black/80">
@@ -22,19 +20,6 @@ const Header = () => {
             <h1 className="text-xl font-bold text-white">Planera</h1>
           </div>
         </div>
-        
-        {/* Navigation Menu */}
-        <nav className="hidden md:flex items-center space-x-8">
-          {navItems.map((item) => (
-            <a 
-              key={item} 
-              href="#" 
-              className="text-white/80 hover:text-white transition-colors duration-200"
-            >
-              {item}
-            </a>
-          ))}
-        </nav>
         
         {/* CTA Button */}
         <Button 
